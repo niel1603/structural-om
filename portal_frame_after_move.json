@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "model_info": {
+    "name": "Unnamed Model",
+    "units": "m"
+  },
+  "id_counters": {
+    "next_node_id": 5,
+    "next_frame_id": 5
+  },
+  "nodes": {
+    "N1": {
+      "xyz": [
+        0,
+        0,
+        0
+      ]
+    },
+    "N2": {
+      "xyz": [
+        5,
+        0,
+        0
+      ]
+    },
+    "N3": {
+      "xyz": [
+        5,
+        3,
+        0
+      ]
+    },
+    "N4": {
+      "xyz": [
+        6,
+        3,
+        0
+      ]
+    }
+  },
+  "frames": {
+    "F1": {
+      "n1": "N1",
+      "n2": "N2"
+    },
+    "F2": {
+      "n1": "N2",
+      "n2": "N3"
+    },
+    "F3": {
+      "n1": "N1",
+      "n2": "N4"
+    },
+    "F4": {
+      "n1": "N4",
+      "n2": "N3"
+    }
+  }
+}
