@@ -1,15 +1,6 @@
 from collections import defaultdict
 from math import sqrt
 
-
-def distance(a, b):
-    return sqrt(
-        (a[0] - b[0]) ** 2 +
-        (a[1] - b[1]) ** 2 +
-        (a[2] - b[2]) ** 2
-    )
-
-
 class SpatialIndex:
     """
     Grid-based spatial hash for tolerant point lookup.
@@ -57,6 +48,13 @@ class SpatialIndex:
         Returns node_id if a node is within tolerance.
         """
         key = self._cell_key(xyz)
+
+        def distance(a, b):
+            return sqrt(
+                (a[0] - b[0]) ** 2 +
+                (a[1] - b[1]) ** 2 +
+                (a[2] - b[2]) ** 2
+            )
 
         for node_id in self._cells.get(key, []):
             node = nodes[node_id]

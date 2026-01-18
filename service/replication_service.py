@@ -2,20 +2,19 @@ from domain.model import StructuralModel
 
 class ReplicationService:
     def replicate_node(self, model: StructuralModel, node_id, dx, dy, dz):
-        node = model.nodes[node_id]
+        node = model.nodes.get(node_id)
         new_xyz = (
             node.xyz[0] + dx,
             node.xyz[1] + dy,
             node.xyz[2] + dz,
         )
-        new_node = model.create_node(new_xyz)
-        return new_node.id
+        return model.nodes.create(xyz=new_xyz)
 
     def replicate_frame(self, model: StructuralModel, frame_id, dx, dy, dz):
-        frame = model.frames[frame_id]
+        frame = model.frames.get(frame_id)
 
-        n1 = model.nodes[frame.n1_id]
-        n2 = model.nodes[frame.n2_id]
+        n1 = model.nodes.get(frame.n1_id)
+        n2 = model.nodes.get(frame.n2_id)
 
         p1_new = (
             n1.xyz[0] + dx,
@@ -28,8 +27,7 @@ class ReplicationService:
             n2.xyz[2] + dz,
         )
 
-        new_n1 = model.get_or_create_node(p1_new)
-        new_n2 = model.get_or_create_node(p2_new)
+        new_n1 = model.nodes.create(xyz=p1_new)
+        new_n2 = model.nodes.create(xyz=p2_new)
 
-        new_frame = model.create_frame(new_n1.id, new_n2.id)
-        return new_frame.id
+        return model.frames.create(n1_id=new_n1.id, n2_id=new_n2.id)
