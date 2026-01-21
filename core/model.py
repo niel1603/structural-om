@@ -1,27 +1,27 @@
-from structural_om.domain.objects.nodes import Nodes
-from structural_om.domain.objects.frames import Frames
+from structural_om.core.api.node import NodeObj
+from structural_om.core.api.frame import FrameObj
 
 import json
 
 class StructuralModel:
     def __init__(self):
-        self.nodes = Nodes()
-        self.frames = Frames()
+        self.node = NodeObj()
+        self.frame = FrameObj()
 
     # ---------- convenience API ----------
 
     def add_frame_by_coord(self, p1, p2):
-        n1 = self.nodes.create(xyz=p1)
-        n2 = self.nodes.create(xyz=p2)
-        return self.frames.create(n1=n1, n2=n2)
+        n1 = self.node.create(xyz=p1)
+        n2 = self.node.create(xyz=p2)
+        return self.frame.create(n1=n1, n2=n2)
 
     # ----------------------------
     # clear 
     # ----------------------------
 
     def clear(self):
-        self.nodes.clear()
-        self.frames.clear()
+        self.node.clear()
+        self.frame.clear()
 
     # ----------------------------
     # JSON
@@ -38,14 +38,14 @@ class StructuralModel:
                 node_id: {
                     "xyz": list(node.xyz),
                 }
-                for node_id, node in self.nodes.all().items()
+                for node_id, node in self.node.all().items()
             },
             "frames": {
                 frame_id: {
                     "n1": frame.n1_id,
                     "n2": frame.n2_id,
                 }
-                for frame_id, frame in self.frames.all().items()
+                for frame_id, frame in self.frame.all().items()
             },
         }
 
